@@ -1,0 +1,16 @@
+List.of(
+                new Store(
+                        "Sushi Central",
+                        "Sushi",
+                        "$$$",
+                        5,
+                        R.drawable.store_logo,  // Resource ID for the image (replace with actual image resource)
+                        Arrays.asList(
+                                new Product("Classic Pizza", 8.99),
+                                new Product("Vegan Delight", 9.49),
+                                new Product("BBQ Feast", 12.00),
+                                new Product("Pepperoni Inferno", 11.50),
+                                new Product("Cheesy Overload", 10.75)
+                        )
+                )
+        );
