@@ -7,7 +7,13 @@ import data.Store
 class FakeStoreRepo : StoreRepository  {
 
 
-    override fun getStores(): List<Store> {
+    override fun getStores(
+        category: String,
+        stars: Int,
+        price: String,
+        lat: Double,
+        lon: Double
+    ): List<Store> {
         return emptyList()
 
     }

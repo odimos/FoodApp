@@ -39,15 +39,17 @@ public class SocketRepository implements ResponseHandler, StoreRepository {
     }
 
     @NonNull
-    public List<Store> getStores(){
+    public List<Store> getStores(
+            @NonNull String category, int stars, @NonNull String price, double lat, double lon
+    ){
         int localTaskID = nextID();
-        Task req = new Task(localTaskID, GlobalConfig.FILTER_STORES, true,
+        Task req = new Task(localTaskID, GlobalConfig.FILTER_STORES, false,
                 Map.of(
-                        "category", "",
-                        "stars", 0,
-                        "price", "",
-                        "latitude", 0.0,
-                        "longitude", 0.0
+                        "category", category,
+                        "stars", stars,
+                        "price", price,
+                        "latitude", lat,
+                        "longitude", lon
                 )
         );
 
@@ -67,6 +69,7 @@ public class SocketRepository implements ResponseHandler, StoreRepository {
         int localTaskID = res.clientTaskID;
         System.out.println("Receives response from Master ");
         Pending pending = getPending(localTaskID);
+        System.out.println("LocalID: "+localTaskID);
         System.out.println("Pending: "+pending);
         pending.setAnswer(res);
     }

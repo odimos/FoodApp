@@ -7,9 +7,24 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
 import com.example.foodapp.ui.theme.FoodAppTheme
+//import com.example.foodapp.ui.theme.Screens.HomeScreen
+
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.toRoute
 import com.example.foodapp.ui.theme.Screens.HomeScreen
+import com.example.foodapp.ui.theme.Screens.StoreScreen
+import data.Store
+import kotlinx.serialization.Serializable
 
 
 class MainActivity : ComponentActivity() {
@@ -24,16 +39,54 @@ class MainActivity : ComponentActivity() {
 
             FoodAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(
-                        innerPadding,
+                    //StoreScreen(innerPadding,store4)
+                    val navController = rememberNavController();
+                    MyNavHost(
+                        navController,
                         viewModel
                     )
-                    //StoreScreen(innerPadding,store4)
                 }
             }
+
+
+        }
+    }
+}
+
+@Composable
+fun MyNavHost(
+    navController: NavHostController,
+    vm: MainViewModel
+){
+    NavHost(
+        navController,
+        startDestination= Home
+    ) {
+        composable<Home> {
+            HomeScreen(
+                vm,
+                navController
+            )
+        }
+        composable<ScreenB> {
+            val args = it.toRoute<ScreenB>();
+            val name = args.name!!;
+
+            StoreScreen(
+                vm,
+                0.dp,
+                args.name
+            );
         }
     }
 }
 
 
-//@Preview(showBackground = true)
+
+@Serializable
+object Home
+
+@Serializable
+data class ScreenB(
+    val name: String?,
+)

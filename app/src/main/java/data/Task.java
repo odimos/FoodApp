@@ -6,8 +6,8 @@ public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public int type;
-    public int ID=0;
-    public int clientTaskID;
+    public int ID; // this is given from master
+    public int clientTaskID; // this is given from client
     public Boolean imediateAnswer;
     // Argument key, argument value
     public Map<String, Serializable> arguments;
@@ -18,6 +18,15 @@ public class Task implements Serializable {
         this.arguments = arguments;
         this.imediateAnswer = imediateAnswer;
         this.clientTaskID = clientTaskID;
+        this.ID = 0;
+    }
+
+    public Task(int clientTaskID, int type, Boolean imediateAnswer, Map<String, Serializable> arguments, int ID) {
+        this.type = type;
+        this.arguments = arguments;
+        this.imediateAnswer = imediateAnswer;
+        this.clientTaskID = clientTaskID;
+        this.ID = ID;
     }
  
     @Override

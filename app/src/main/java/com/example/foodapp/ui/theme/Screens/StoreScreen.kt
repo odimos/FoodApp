@@ -3,7 +3,6 @@ package com.example.foodapp.ui.theme.Screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,18 +17,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.foodapp.MainViewModel
 import com.example.foodapp.R
 import data.Product
 import data.Store
 
 @Composable
 fun StoreScreen(
-    innerPadding: PaddingValues? = null,
-    store: Store
-
+    vm: MainViewModel,
+    innerPadding: Dp ,
+    name: String,
 ){
+
+    // get store
+     val store:Store= vm.getStoreByName(name)!!;
 
     Column(
         modifier = Modifier.fillMaxSize()

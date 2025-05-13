@@ -1,6 +1,7 @@
 package com.example.foodapp.ui.theme.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,11 +16,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.foodapp.R
+import com.example.foodapp.ScreenB
 import data.Store
 
 @Composable
-fun StoreCard(store: Store ) {
+fun StoreCard(
+    navController: NavHostController,
+    store: Store
+) {
     // Define the fixed width for the card
     val cardheight =270.dp;
 
@@ -29,7 +35,12 @@ fun StoreCard(store: Store ) {
         modifier = Modifier
             .fillMaxWidth()
             .height(cardheight)
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable {
+                // Perform your navigation or action here
+                navController.navigate(ScreenB(store.storeName))
+            },
+
         shape = MaterialTheme.shapes.medium  // Rounded corners, can change if needed
     ) {
         Column(

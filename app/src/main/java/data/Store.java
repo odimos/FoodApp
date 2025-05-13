@@ -179,4 +179,17 @@ public class Store implements Serializable {
         }
         
     }
+
+
+    /*
+     * File imgFile = new File("store_photo.jpg");
+        byte[] photoBytes = new byte[(int) imgFile.length()];
+        FileInputStream fis = new FileInputStream(imgFile);
+        fis.read(photoBytes);
+        fis.close();
+
+        // Create Store object
+        Store store = new Store("ABC Market", "123 Main St", photoBytes);
+     * 
+     */
 }
