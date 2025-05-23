@@ -26,7 +26,7 @@ fun HomeScreen(
                 6.dp,40.dp, 6.dp, 50.dp
             )
     ) {
-        val categories = listOf("Pizza", "Sushi", "Burger", "Fast Food");
+        val categories = listOf("Pizza", "Japanese", "Burger", "Mexican");
 
         FilterSection(
             Modifier.padding(0.dp),

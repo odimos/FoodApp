@@ -1,6 +1,10 @@
 package com.example.foodapp.repository;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+
+import org.jetbrains.annotations.NotNull;
 
 import data.Answer;
 import data.Client;
@@ -38,6 +42,7 @@ public class SocketRepository implements ResponseHandler, StoreRepository {
                 .start();
     }
 
+
     @NonNull
     public List<Store> getStores(
             @NonNull String category, int stars, @NonNull String price, double lat, double lon
@@ -61,8 +66,33 @@ public class SocketRepository implements ResponseHandler, StoreRepository {
         sendToMaster(req);
         Answer answer = pending.waitForAnswer();
 
-        System.out.println("Sending Response back to UI"+answer);
+        //System.out.println("Sending Response back to UI"+answer);
         return (List<Store>) answer.arguments.get("result");
+    }
+
+    @NonNull
+    @Override
+    public Answer buy(
+            @NonNull String storeName, @NonNull String productName, int quantity
+    ){
+        int localTaskID = nextID();
+        Task req = new Task(localTaskID, GlobalConfig.BUY, true,
+                Map.of(
+                        "storeName", storeName,
+                        "productName", productName,
+                        "quantity", quantity
+                )
+        );
+        Pending pending = new Pending();
+        addPending(localTaskID, pending);
+        System.out.println("req "+req);
+        req.clientTaskID = localTaskID;
+        Log.d("DEB","Sending Request to Master");
+        sendToMaster(req);
+        Answer answer = pending.waitForAnswer();
+
+        Log.d("DEB","Sending Response back to UI"+answer);
+        return answer;
     }
     @Override
     public void handleResponseFromServer(Answer res) {
@@ -77,5 +107,28 @@ public class SocketRepository implements ResponseHandler, StoreRepository {
     @Override
     public Store getStoreById(int id) {
         return null;
+    }
+
+
+    @Override
+    public @NotNull Answer rate(@NotNull String storeName, int stars) {
+        Log.d("DEB","Rate");
+        int localTaskID = nextID();
+        Task req = new Task(0, GlobalConfig.RATE, true,
+                Map.of(
+                        "storeName", storeName,
+                        "stars", stars
+                )
+        );
+        Pending pending = new Pending();
+        addPending(localTaskID, pending);
+        System.out.println("req "+req);
+        req.clientTaskID = localTaskID;
+        Log.d("DEB","Sending Request to Master");
+        sendToMaster(req);
+        Answer answer = pending.waitForAnswer();
+
+        Log.d("DEB","Sending Response back to UI"+answer);
+        return answer;
     }
 }

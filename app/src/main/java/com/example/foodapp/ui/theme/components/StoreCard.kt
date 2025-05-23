@@ -1,5 +1,6 @@
 package com.example.foodapp.ui.theme.components
 
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -20,15 +22,22 @@ import androidx.navigation.NavHostController
 import com.example.foodapp.R
 import com.example.foodapp.ScreenB
 import data.Store
+import androidx.compose.ui.graphics.asImageBitmap
+import kotlin.math.roundToInt
 
 @Composable
 fun StoreCard(
     navController: NavHostController,
-    store: Store
+    store: Store,
 ) {
     // Define the fixed width for the card
     val cardheight =270.dp;
 
+    val imageData:ByteArray = store.imageData;
+
+    val bitmap = remember(imageData) {
+        BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
+    }
     
     Card(
 
@@ -49,7 +58,8 @@ fun StoreCard(
             // Logo Image (replace with an actual image)
             Image(
                 contentScale = ContentScale.Crop,
-                painter = painterResource(id = R.drawable.store_logo), // Replace with your logo resource
+                //painter = painterResource(id = R.drawable.store_logo), // Replace with your logo resource
+                bitmap = bitmap.asImageBitmap(),
                 contentDescription = "Store Logo",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -74,7 +84,7 @@ fun StoreCard(
                         store.priceCategory,
                         modifier = Modifier.weight(1f)
                     )  // Take up remaining space
-                    Text(" ${store.stars}★")
+                    Text(" ${store.stars.roundToInt()}★")
                 }
             }
 

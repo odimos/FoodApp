@@ -17,7 +17,8 @@ fun StoresList(
         items(stores) { store ->
             StoreCard(
                 navController,
-                store = store
+                store = store,
+
             )
         }
     }

@@ -1,5 +1,7 @@
 package com.example.foodapp.ui.theme.Screens
 
+import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,17 +15,25 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import com.example.foodapp.MainViewModel
 import com.example.foodapp.R
+import com.example.foodapp.ui.theme.components.Rating
 import data.Product
 import data.Store
+import kotlinx.coroutines.launch
 
 @Composable
 fun StoreScreen(
@@ -34,6 +44,11 @@ fun StoreScreen(
 
     // get store
      val store:Store= vm.getStoreByName(name)!!;
+    val imageData:ByteArray = store.imageData;
+
+    val bitmap = remember(imageData) {
+        BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
+    }
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -41,7 +56,8 @@ fun StoreScreen(
     ) {
         // Store Image
         Image(
-            painter = painterResource(id = R.drawable.store_logo),
+            //painter = painterResource(id = R.drawable.store_logo),
+            bitmap=bitmap.asImageBitmap(),
             contentDescription = "Store Image",
             modifier = Modifier
                 .fillMaxWidth()
@@ -58,13 +74,34 @@ fun StoreScreen(
             modifier = Modifier.padding(horizontal = 16.dp)
         )
 
+        var selectedRating by remember { mutableStateOf(0) }
+        Rating(
+            rating = selectedRating,
+            onRatingChanged = { selectedRating = it },
+            rate = { rating ->
+                vm.viewModelScope.launch {
+                    vm.rate(name, rating);
+                }
+            }
+        )
+
         Column (modifier = Modifier
             .padding(0.dp,0.dp,0.dp,50.dp)) {
             // LazyColumn for Products
             LazyColumn(modifier = Modifier.fillMaxSize()
             ) {
                 items(store.products) { product ->
-                    ProductItem(product = product)
+                    if (product.availableAmount>0){
+                        ProductItem(
+                            product = product,
+                            buy = {
+                                vm.viewModelScope.launch {
+                                    vm.buy(store.storeName, product.productName, 1);
+                                }
+                            }
+                        )
+                    }
+
                 }
             }
         }
@@ -74,7 +111,10 @@ fun StoreScreen(
 }
 
 @Composable
-fun ProductItem(product: Product) {
+fun ProductItem(
+    product: Product,
+    buy: () -> Unit
+) {
     Column(modifier = Modifier.padding(16.dp)) {
         // Row to contain name/price column and the "Buy" button
         Row(
@@ -99,7 +139,9 @@ fun ProductItem(product: Product) {
             }
 
             // Buy button
-            Button(onClick = { /* Handle Buy action */ }) {
+            Button(onClick = {
+                buy();
+            }) {
                 Text(text = "Buy")
             }
         }

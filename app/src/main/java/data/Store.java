@@ -20,6 +20,7 @@ public class Store implements Serializable {
     public double totalRevenue;
     public int expensivenessCategory;
     public List<Product> products;
+    public byte[] imageData;
 
     public String toString() {
         return "\nStore\n{" +
@@ -39,7 +40,7 @@ public class Store implements Serializable {
 
     // from JSON
     public Store(String storeName, double latitude, double longitude, String foodCategory,
-                 double stars, int noOfVotes, String storeLogo, List<Product> products) {
+                 double stars, int noOfVotes, String storeLogo,byte[] imageData, List<Product> products) {
         this.storeName = storeName;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -51,6 +52,8 @@ public class Store implements Serializable {
         this.priceCategory = calculatePriceCategory();
         this.sales= new ArrayList<Sale>();
         this.totalRevenue = 0.0;
+        
+        this.imageData = imageData;
     }
 
     public synchronized int getNoOfVotes() {
@@ -168,15 +171,7 @@ public class Store implements Serializable {
     }
 
     public static void main(String[] args) {
-        Store store=null;
-        try {
-            String json = StoreParser.jsonFileToString("res/store_data.json");
-            store = StoreParser.createStoreFromJSONString(json);
-            System.out.print(store);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
         
     }
 

@@ -18,13 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import com.example.foodapp.MainViewModel
 
+
 @Composable
 fun FilterSection(
     modifier: Modifier = Modifier,
     categories: List<String> = listOf("Pizza"),
     vm: MainViewModel
 ){
-    var selectedCategories by remember { mutableStateOf(setOf<String>()) }
+    var selectedCategory by remember { mutableStateOf<String?>(null) }
 
     val prices = listOf("$", "$$", "$$$")
     var selectedPrice by remember { mutableStateOf<String?>(null) }
@@ -43,13 +44,9 @@ fun FilterSection(
         ) {
             categories.forEach { category ->
                 FilterChip(
-                    selected = selectedCategories.contains(category),
+                    selected = selectedCategory == category,
                     onClick = {
-                        selectedCategories = if (selectedCategories.contains(category)) {
-                            selectedCategories - category // remove
-                        } else {
-                            selectedCategories + category // add
-                        }
+                        selectedCategory = if (selectedCategory == category) null else category
                     },
                     label = { Text(category) },
                     modifier = Modifier.padding(end = 8.dp)
@@ -81,7 +78,7 @@ fun FilterSection(
             }
         }
         Button(onClick = {
-            val category: String = selectedCategories.firstOrNull() ?: ""
+            val category: String = selectedCategory ?: ""
             val stars: Int = selectedStars ?: 0
             val price: String = selectedPrice?:"";
 

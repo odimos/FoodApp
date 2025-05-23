@@ -22,6 +22,12 @@ public class Answer implements Serializable {
         this.message = message;
         this.arguments = new HashMap<>();
     }
+
+    public Answer( String message){
+
+        this.message = message;
+        this.arguments = new HashMap<>();
+    }
  
     @Override
     public String toString() {
