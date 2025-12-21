@@ -33,8 +33,7 @@ fun Rating(
     modifier: Modifier = Modifier,
     starSize: Dp = 32.dp,
     filledColor: Color = Color.Yellow,
-    unfilledColor: Color = Color.Gray,
-    rate: (Int)-> Unit = {}
+    unfilledColor: Color = Color.Gray
 ) {
     Row(
         modifier = modifier.fillMaxWidth(), // Fill the width so it can align content
@@ -48,7 +47,6 @@ fun Rating(
                     .size(starSize)
                     .clickable {
                         onRatingChanged(i);
-                        rate(i);
                     },
                 tint = if (i <= rating) filledColor else unfilledColor
             )
