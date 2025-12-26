@@ -2,10 +2,9 @@
 
 ## Screens
 <p align="center">
-  <img src="https://github.com/odimos/FoodApp/releases/download/v1/0.png" width="22%" />
-  <img src="https://github.com/odimos/FoodApp/releases/download/v1/1.png" width="22%" />
-  <img src="https://github.com/odimos/FoodApp/releases/download/v1/2.png" width="22%" />
-  <img src="https://github.com/odimos/FoodApp/releases/download/v1/3.png" width="22%" />
+  <img src="https://github.com/odimos/FoodApp/releases/download/v1/0.png" width="30%" />
+  <img src="https://github.com/odimos/FoodApp/releases/download/v1/1.png" width="30%" />
+  <img src="https://github.com/odimos/FoodApp/releases/download/v1/2.png" width="30%" />
 </p>
 
 
@@ -40,6 +39,7 @@
     - Handles concurrency with `synchronized` blocks and `wait()/notify()`
     - Manages pending requests with task IDs
 
+```
 ─ ui
    ├── screens
    │   ├── HomeScreen.kt
@@ -60,7 +60,7 @@
     ├── Pending
     ├── GlobalConfig
     └── Task, Answer
-
+```
 ## Configuration
 In the GlobalConfig file you must set the
 MASTER_HOST_IP and MASTER_PORT_FOR_CLIENTS to connect to the backend. 
