@@ -1,10 +1,13 @@
 # Distributed System Food Ordering Application
 
 ## Screens
-![Screenshot](https://github.com/odimos/FoodApp/releases/download/v1/0.png)
-![Screenshot](https://github.com/odimos/FoodApp/releases/download/v1/1.png)
-![Screenshot](https://github.com/odimos/FoodApp/releases/download/v1/2.png)
-![Screenshot](https://github.com/odimos/FoodApp/releases/download/v1/3.png)
+<p align="center">
+  <img src="https://github.com/odimos/FoodApp/releases/download/v1/0.png" width="22%" />
+  <img src="https://github.com/odimos/FoodApp/releases/download/v1/1.png" width="22%" />
+  <img src="https://github.com/odimos/FoodApp/releases/download/v1/2.png" width="22%" />
+  <img src="https://github.com/odimos/FoodApp/releases/download/v1/3.png" width="22%" />
+</p>
+
 
 ## Tech Stack
 
