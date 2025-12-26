@@ -4,7 +4,6 @@
 <p align="center">
   <img src="https://github.com/odimos/FoodApp/releases/download/v1/0.png" width="30%" />
   <img src="https://github.com/odimos/FoodApp/releases/download/v1/1.png" width="30%" />
-  <img src="https://github.com/odimos/FoodApp/releases/download/v1/2.png" width="30%" />
 </p>
 
 
