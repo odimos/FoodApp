@@ -13,30 +13,29 @@ UI Layer (Screens & Composables)
 ├── Data Layer
 │   └── Network or database calls
 │
-└── Models
-    └── Store, Product, CartItem, etc.
 
 
-com.yourappname
 ├── ui
 │   ├── screens
 │   │   ├── HomeScreen.kt
-│   │   ├── StoreScreen.kt
 │   │   └── CartScreen.kt
 │   ├── components
+│   │   ├── FilterSection.kt
+│   │   ├── popup.kt
 │   │   ├── StoreCard.kt
 │   │   ├── ProductItem.kt
 │   │   └── FiltersSection.kt
 ├── viewmodel
 │   └── MainViewModel.kt
 ├── repository
-│   └── SocketRepository.kt
-├── data
-│   └── SocketClient.java
-├── model
-│   ├── Store.kt
-│   ├── Product.kt
-│   └── CartItem.kt
+│   └── SocketRepository.kt (implements StoreRepository)
+└── data
+    ├── Store, Product, Sale
+    ├── Client, RequestHandler, ResponseHandler
+    ├── Pending
+    ├── GlobalConfig
+    └── Task, Answer
+
 
 StoreRepo (interface: SocketRepo or FakeStoreRepo
 ------------------------------------------------
@@ -62,8 +61,3 @@ StoreRepo (interface: SocketRepo or FakeStoreRepo
 |----------------------------------------------|
 | ... more stores ...                          |
 ------------------------------------------------
-
-Possible routes:
-1: Stores -> Store -> Buy individually/Rate <-> result
-2: Stores -> Store -> Add to Cart -> Cart -> Buy -> Result -> Rate
-3: Stores/Buy/rate <-> Result
