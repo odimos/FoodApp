@@ -1,5 +1,7 @@
 package data;
 
+import android.util.Log;
+
 import java.io.*;
 import java.net.*;
 public class Client<M extends ResponseHandler> extends Thread  {
@@ -15,39 +17,41 @@ public class Client<M extends ResponseHandler> extends Thread  {
         this.manager = manager;
     }
 
+
     public void run() {
         Socket requestSocket = null;
+
         ObjectOutputStream out = null;
         ObjectInputStream in = null;
         try {
-            System.out.println("Client triesto connect to "+host+" "+port);
+            //System.out.println("CONNECTING.. --> " + host + ":" + port);
             requestSocket = new Socket(host, port);
-            System.out.println("Socket Created");
+            requestSocket.setSoTimeout(5000); // wait up to 5s for readObject()
+
             out = new ObjectOutputStream(requestSocket.getOutputStream());
+            out.flush();                      // important
             in = new ObjectInputStream(requestSocket.getInputStream());
 
             out.writeObject(task);
             out.flush();
             Answer res = (Answer) in.readObject();
-            System.out.println("Answer: "+ res);
             manager.handleResponseFromServer(res);
 
         } catch (UnknownHostException unknownHost) {
             System.err.println("You are trying to connect to an unknown host!");
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } finally {
-            try {
-                System.out.println("Closing");
-                in.close();	out.close();
-                requestSocket.close();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+        }  catch (SocketTimeoutException e) {
+            // no answer in time
+            // close socket and treat as failure
+            Log.d("STORES","Socket timed out while waiting for response from " + host + ":" + port);
+        }
+        catch (Throwable t) {
+            t.printStackTrace();
+        }finally {
+            try { if (in != null) in.close(); } catch (Exception ignored) {}
+            try { if (out != null) out.close(); } catch (Exception ignored) {}
+            try { if (requestSocket != null) requestSocket.close(); } catch (Exception ignored) {}
         }
     }
+
 
 }

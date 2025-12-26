@@ -56,17 +56,19 @@ fun StoreCard(
             // Padding inside the card
         ) {
             // Logo Image (replace with an actual image)
-            Image(
-                contentScale = ContentScale.Crop,
-                //painter = painterResource(id = R.drawable.store_logo), // Replace with your logo resource
-                bitmap = bitmap.asImageBitmap(),
-                contentDescription = "Store Logo",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    //.size(50.dp) // Logo size
-                    .height(150.dp)
-                    .align(Alignment.CenterHorizontally) // Center the logo
-            )
+            if (bitmap != null) {
+                Image(
+                    contentScale = ContentScale.Crop,
+                    //painter = painterResource(id = R.drawable.store_logo), // Replace with your logo resource
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = "Store Logo",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        //.size(50.dp) // Logo size
+                        .height(150.dp)
+                        .align(Alignment.CenterHorizontally) // Center the logo
+                )
+            }
 
             Column (
                 modifier = Modifier.padding(16.dp)

@@ -54,6 +54,7 @@ public class SocketRepository implements ResponseHandler, StoreRepository {
         int localTaskID = nextID();
         Task req = new Task(localTaskID, GlobalConfig.FILTER_STORES, false,
                 Map.of(
+                        "name",     "",
                         "categories", (Serializable) new java.util.ArrayList<>(categories),
                         "stars",      (Serializable) new java.util.ArrayList<>(stars),
                         "price",      (Serializable) new java.util.ArrayList<>(prices),
@@ -67,8 +68,10 @@ public class SocketRepository implements ResponseHandler, StoreRepository {
         addPending(localTaskID, pending);
         req.clientTaskID = localTaskID;
         System.out.println("Sending Request to Master");
+        Log.d("STORES","Sending Request to Master");
         sendToMaster(req);
         Answer answer = pending.waitForAnswer();
+        Log.d("STORES","Getting Answer from Master");
 
         //System.out.println("Sending Response back to UI"+answer);
         return (List<Store>) answer.arguments.get("result");
