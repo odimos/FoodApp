@@ -1,7 +1,10 @@
 # Distributed System Food Ordering Application
 
 ## Screens
-![Screenshot1]("assets/0.png") ![Screenshot1]("assets/1.png") ![Screenshot]("assets/2.png") ![Screenshot]("assets/3.png")
+![Screenshot](assets/0.png)
+![Screenshot](assets/1.png)
+![Screenshot](assets/2.png)
+![Screenshot](assets/3.png)
 
 ## Tech Stack
 
