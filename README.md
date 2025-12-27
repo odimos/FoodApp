@@ -6,6 +6,7 @@
   <img src="https://github.com/odimos/FoodApp/releases/download/v1/1.png" width="30%" />
 </p>
 
+[Demo Presentation](https://youtu.be/1YkYJ1bX4pA)
 
 ## Tech Stack
 
