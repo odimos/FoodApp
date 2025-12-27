@@ -6,8 +6,8 @@
   <img src="https://github.com/odimos/FoodApp/releases/download/v1/1.png" width="30%" />
 </p>
 
-### ▶ Video Presentation
-[Watch on YouTube](https://www.youtube.com/watch?v=sbULFQ-iN-8)
+### [▶ Video Presentation](https://www.youtube.com/watch?v=sbULFQ-iN-8)
+
 
 ## Tech Stack
 
