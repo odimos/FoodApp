@@ -1,5 +1,7 @@
 # Distributed System Food Ordering Application
 
+(Java backend repository: https://github.com/odimos/Distributed-System-Food-Ordering)
+
 ## Screens
 <p align="center">
   <img src="https://github.com/odimos/FoodApp/releases/download/v1/0.png" width="30%" />
